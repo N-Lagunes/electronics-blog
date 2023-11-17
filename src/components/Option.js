@@ -1,6 +1,6 @@
 // Option.js
 import React from 'react';
-
+import '../css/Option.css'
 const Option = ({ text, onClick, isOpen }) => {
   const triangleChar = isOpen ? '▼' : '▶';
 

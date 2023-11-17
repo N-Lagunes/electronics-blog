@@ -1,12 +1,14 @@
 // Navbar.js
 import React from 'react';
+import '../css/Navbar.css';
 
 const Navbar = () => {
   return (
-    <header>
-      <h1>Electronics Blog</h1>
+    <header className="navbar">
+      Electronics Blog
     </header>
   );
 };
 
 export default Navbar;
+

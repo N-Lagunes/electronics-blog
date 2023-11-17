@@ -1,0 +1,36 @@
+/* Options.css */
+.options-container {
+  display: flex;
+  flex-direction: row; /* Layout children in a row */
+  align-items: center; /* Center children vertically */
+  justify-content: center; /* Center children horizontally */
+  width: 100%; /* Ensure the container takes full width */
+  max-width: 800px; /* Or the max-width of your app */
+  margin: auto; /* Center the container in the middle of the page */
+  background-color: #f8f9fa;  
+}
+
+.options {
+  background-color: #f8f9fa; /* Light background for the options section */
+  padding: 20px; /* Add some padding around your options */
+  width: auto; /* Auto width for the text */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+}
+
+.options nav {
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  /* Set width and height for the image if desired, or let it be auto */
+  margin-left: 20px; /* Add some margin to the left of the image */
+  height: 150px;
+  width: 125 px;
+  background-color: #f8f9fa;
+}
+
+
+
+
+  
