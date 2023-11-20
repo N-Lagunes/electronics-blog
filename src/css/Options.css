@@ -11,8 +11,8 @@
 }
 
 .options {
-  background-color: #f8f9fa; /* Light background for the options section */
-  padding: 20px; /* Add some padding around your options */
+  background-color: #f8f9fa;/* Light background for the options section */
+  padding: 5px; /* Add some padding around your options */
   width: auto; /* Auto width for the text */
   box-sizing: border-box; /* Include padding and border in the element's width */
 }

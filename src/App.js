@@ -1,5 +1,6 @@
 // App.js
 import React, { useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import Navbar from './components/Navbar';
 import Options from './components/Options';
 import InfoSection from './components/InfoSection';
@@ -7,55 +8,65 @@ import InfoSection from './components/InfoSection';
 const App = () => {
   const [infoContent, setInfoContent] = useState('');
   const [activeOption, setActiveOption] = useState(null);
+  const [activeTitle, setActiveTitle] = useState(''); // State for the active title
 
-  const fetchTextContent = (fileURL, optionId) => {
-    if (activeOption === optionId) {
-      // If the same option was clicked again, hide the content and reset activeOption
-      setInfoContent('');
-      setActiveOption(null);
-    } else {
-      // Otherwise, fetch new content and set the active option
-      fetch(fileURL)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(text => {
-          setInfoContent(text);
-          setActiveOption(optionId);
-        })
-        .catch(error => {
-          console.error("Could not read the file: ", error);
-          setInfoContent("Failed to load the file content.");
-          setActiveOption(null);
-        });
-    }
+
+  
+  const fetchTextContent = (filePath, optionId) => {
+    fetch(filePath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(text => {
+        setInfoContent(text);
+        // Set the title based on the optionId
+        const title = options.find(option => option.id === optionId)?.text || '';
+        setActiveTitle(title);
+      })
+      .catch(error => {
+        console.error("Could not read the file: ", error);
+        setInfoContent("Failed to load the file content.");
+      });
   };
 
   const handleSelectOption = (optionId) => {
-    switch (optionId) {
-      case 'electronics':
-        fetchTextContent('./blobs/electronics.txt', 'electronics');
-        break;
-      case 'elements':
-        fetchTextContent('./blobs/elements.txt', 'elements'); 
-        break;
-      case 'books':
-        fetchTextContent('./blobs/books.txt', 'books'); 
-        break;
-      default:
-        setInfoContent('');
-        setActiveOption(null);
+    // If the same option was clicked again, toggle the content visibility
+    if (activeOption === optionId) {
+      setInfoContent('');
+      setActiveOption(null);
+      setActiveTitle('');
+    } else {
+      setActiveOption(optionId); // Set the new active option
+      // Construct the file path based on the optionId
+      const filePath = `/blobs/${optionId}.txt`;
+      fetchTextContent(filePath, optionId);
     }
   };
+  
+  // Define your options here or import them from another module
+  const options = [
+    { text: 'What is electronics?',   id: 'electronics' },
+    { text: 'Basic circuit elements', id: 'elements'    },
+    { text: 'Good books to read?',    id: 'books'       }
+  ];
 
   return (
     <div className="App">
       <Navbar />
       <Options onSelect={handleSelectOption} activeOption={activeOption} />
-      <InfoSection content={infoContent} />
+      {/*<InfoSection content={infoContent} />*/} 
+      <CSSTransition
+        in={!!infoContent} // Use 'infoContent' here
+        timeout={500} 
+        classNames="info-section"
+        unmountOnExit
+      >
+         <InfoSection content={infoContent} title={activeTitle} />
+      </CSSTransition>
+
     </div>
   );
 };

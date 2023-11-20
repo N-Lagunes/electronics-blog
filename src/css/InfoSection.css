@@ -1,6 +1,25 @@
 /* InfoSection.css */
 .info-section {
-    padding: 20px;
-    border-top: 1px solid #dee2e6; /* Light border at the top of the info section */
-  }
-  
+  padding: 20px;
+  transition: opacity 0.5s ease-out;
+}
+
+.info-title {
+  margin-bottom: 10px; /* Add space between the title and content */
+  text-align: center;
+}
+
+.info-content {
+  text-align: justify;
+  text-justify: inter-word;
+  opacity: 1; /* Start fully visible */
+}
+
+/* When the content of the info-section changes, it fades in */
+.info-section-enter {
+  opacity: 0;
+}
+.info-section-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
